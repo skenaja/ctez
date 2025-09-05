@@ -1,7 +1,8 @@
 import { Box, useColorMode, useTheme } from '@chakra-ui/react';
 import { format, parseISO } from 'date-fns/fp';
 import React, { Dispatch, SetStateAction, ReactNode } from 'react';
-import { BarChart, ResponsiveContainer, XAxis, Tooltip, Bar, Text, TooltipProps } from 'recharts';
+import { BarChart, ResponsiveContainer, XAxis, Tooltip, Bar, Text, TooltipProps, BarProps } from 'recharts';
+import { OneLineGraph } from '../../interfaces/analytics';
 
 export enum VolumeWindow {
   daily,
@@ -14,7 +15,7 @@ const formatDay = format('dd');
 const formatMonth = format('LLL');
 
 export type LineChartProps = {
-  data: any[];
+  data: OneLineGraph[];
   color?: string | undefined;
   height?: number | undefined;
   minHeight?: number;
@@ -37,10 +38,10 @@ const CustomBar = ({
   height,
   fill,
 }: {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
   fill: string;
 }) => {
   return (
@@ -151,7 +152,7 @@ const BarChartAlt = ({
           <Bar
             dataKey="value"
             fill={color}
-            shape={(props) => {
+            shape={(props: any) => {
               return (
                 <CustomBar
                   height={props.height}
